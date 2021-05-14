@@ -1,5 +1,4 @@
 name: gnome-characters
-version: git
 adopt-info: gnome-characters
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
@@ -41,6 +40,7 @@ parts:
       snap/gnome-characters/current/usr: usr
     override-pull: |
       snapcraftctl pull
+      snapcraftctl set-version $(git describe --tags --abbrev=10)
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/org.gnome.Characters.in
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/org.gnome.Characters.BackgroundService.in
       sed -i.bak -e 's|=@appid@$|=${SNAP}/meta/gui/org.gnome.Characters.svg|g' data/org.gnome.Characters.desktop.in
