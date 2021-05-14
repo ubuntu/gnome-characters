@@ -1,19 +1,5 @@
-# How to use this template repository
-
-This is a template repository, meant to be copied to start a skeleton of other projects. This template provides a few things:
-- build workflow so that a snap is built automatically when a Pull Request (PR) is opened
-- PR template
-- README.md skeleton
-
-A bit about the README.md below:
-- Delete everything in this "How to use this template repository" (everything above the ==== line). 
-- Replace gnome-characters with the name of the snap (ex. gnome-characters).
-- Update any section starting with "TODO" to add the info requested, and remove the TODO line.
-
-========================================================================================
 # gnome-characters
 
-TODO: Add links to badges. Here's the gnome-characters badge links for example:
 *[![gnome-characters](https://snapcraft.io/gnome-characters/badge.svg)](https://snapcraft.io/gnome-characters)
 [![gnome-characters](https://snapcraft.io/gnome-characters/trending.svg?name=0)](https://snapcraft.io/gnome-characters)*
 
