@@ -33,6 +33,7 @@ parts:
   gnome-characters:
     source: https://gitlab.gnome.org/GNOME/gnome-characters.git
     source-type: git
+    source-branch: gnome-41
     plugin: meson
     meson-parameters: [--buildtype=release, --prefix=/snap/gnome-characters/current/usr]
     parse-info: [usr/share/metainfo/org.gnome.Characters.appdata.xml]
