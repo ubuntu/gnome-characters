@@ -36,6 +36,7 @@ parts:
     source-branch: gnome-41
     plugin: meson
     meson-parameters: [--buildtype=release, --prefix=/snap/gnome-characters/current/usr]
+    meson-version: 0.58.1
     parse-info: [usr/share/metainfo/org.gnome.Characters.appdata.xml]
     organize:
       snap/gnome-characters/current/usr: usr
