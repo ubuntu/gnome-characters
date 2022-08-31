@@ -1,3 +1,5 @@
+# Fixes the paths where the JS packages are installed
+
 diff --git a/src/org.gnome.Characters.in b/src/org.gnome.Characters.in
 index 14627d9..b0b288d 100644
 --- a/src/org.gnome.Characters.in
