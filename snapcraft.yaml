@@ -2,7 +2,7 @@ name: gnome-characters
 adopt-info: gnome-characters
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
-base: core20
+base: core22
 
 layout:
   /usr/bin/gjs:
@@ -18,40 +18,40 @@ slots:
 apps:
   gnome-characters:
     command: usr/share/org.gnome.Characters/org.gnome.Characters
-    extensions: [gnome-3-38]
+    extensions: [gnome]
     plugs:
       - browser-support
       - home
     desktop: usr/share/applications/org.gnome.Characters.desktop
     common-id: org.gnome.Characters.desktop
     environment:
-      LD_LIBRARY_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/org.gnome.Characters:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib:$SNAP/gnome-platform/usr/lib:$SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET
-      GI_TYPELIB_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/org.gnome.Characters/girepository-1.0:$SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/gjs/girepository-1.0:$SNAP/gnome-platform/usr/lib/girepository-1.0:$SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0
+      LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/org.gnome.Characters:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/lib:$SNAP/gnome-platform/usr/lib:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+      GI_TYPELIB_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/org.gnome.Characters/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/gjs/girepository-1.0:$SNAP/gnome-platform/usr/lib/girepository-1.0:$SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/girepository-1.0${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}
 
 parts:
   gnome-characters:
     source: https://gitlab.gnome.org/GNOME/gnome-characters.git
     source-type: git
-    source-branch: gnome-41
+    source-tag: '42.0'
     plugin: meson
-    meson-parameters: [--buildtype=release, --prefix=/snap/gnome-characters/current/usr]
-    meson-version: 0.58.1
+    meson-parameters:
+      - --buildtype=release
+      - --prefix=/usr
     parse-info: [usr/share/metainfo/org.gnome.Characters.appdata.xml]
-    organize:
-      snap/gnome-characters/current/usr: usr
     override-pull: |
-      snapcraftctl pull
-      snapcraftctl set-version $(git describe --tags --abbrev=10)
+      craftctl default
       sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/org.gnome.Characters.in
-      sed -i -e 's|@GJS@|/usr/bin/gjs|g' src/org.gnome.Characters.BackgroundService.in
-      sed -i.bak -e 's|=@appid@$|=${SNAP}/meta/gui/org.gnome.Characters.svg|g' data/org.gnome.Characters.desktop.in
+      sed -i.bak -e 's|=@appid@$|=${SNAP}/meta/gui/org.gnome.Characters.svg|g' data/org.gnome.Characters.desktop.in.in
+      for i in $CRAFT_PROJECT_DIR/patches/*.diff; do
+        patch -p1 < $i
+      done
     override-build: |
-      snapcraftctl build
-      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
-      cp ../src/data/icons/hicolor/scalable/apps/org.gnome.Characters.svg $SNAPCRAFT_PART_INSTALL/meta/gui/
-      sed -i.bak -e 's|=@bindir@/gnome-characters$|=${SNAP}/usr/share/org.gnome.Characters/org.gnome.Characters|g' data/org.gnome.Characters.desktop.in
-      rm -f $SNAPCRAFT_PART_INSTALL/snap/gnome-characters/current/usr/bin/gnome-characters
+      craftctl default
+      mkdir -p $CRAFT_PART_INSTALL/meta/gui/
+      cp ../src/data/icons/hicolor/scalable/apps/org.gnome.Characters.svg $CRAFT_PART_INSTALL/meta/gui/
+      sed -i -e 's|=@bindir@/gnome-characters$|=${SNAP}/usr/share/org.gnome.Characters/org.gnome.Characters|g' data/org.gnome.Characters.desktop.in
     build-packages:
       - desktop-file-utils
       - gperf
       - libunistring-dev
+      - python3-distutils

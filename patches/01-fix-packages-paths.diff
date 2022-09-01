@@ -1,0 +1,19 @@
+# Fixes the paths where the JS packages are installed
+
+diff --git a/src/org.gnome.Characters.in b/src/org.gnome.Characters.in
+index 14627d9..b0b288d 100644
+--- a/src/org.gnome.Characters.in
++++ b/src/org.gnome.Characters.in
+@@ -1,6 +1,10 @@
+ #!/usr/bin/gjs
++const GLib = imports.gi.GLib;
++
++let snap_path = GLib.getenv("SNAP");
++
+ imports.package.init({ name: "@appid@",
+                        version: "@PACKAGE_VERSION@",
+-                       prefix: "@prefix@",
+-                       libdir: "@libdir@" });
++                       prefix: GLib.build_filenamev([snap_path, "@prefix@"]),
++                       libdir: GLib.build_filenamev([snap_path, "@libdir@"]) });
+ imports.package.run(imports.main);
