@@ -55,3 +55,5 @@ parts:
       - gperf
       - libunistring-dev
       - python3-distutils
+    prime:
+      - -usr/bin/gnome-characters
