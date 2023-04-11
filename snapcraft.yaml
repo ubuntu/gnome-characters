@@ -32,7 +32,7 @@ parts:
   gnome-characters:
     source: https://gitlab.gnome.org/GNOME/gnome-characters.git
     source-type: git
-    source-tag: '42.0'
+    source-tag: '44.0'
     plugin: meson
     meson-parameters:
       - --buildtype=release
