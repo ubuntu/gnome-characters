@@ -33,6 +33,10 @@ parts:
     source: https://gitlab.gnome.org/GNOME/gnome-characters.git
     source-type: git
     source-tag: '44.0'
+# ext:updatesnap
+#   version-format:
+#     lower-than: '45'
+#     no-9x-revisions: true
     plugin: meson
     meson-parameters:
       - --buildtype=release
