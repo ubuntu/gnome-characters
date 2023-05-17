@@ -33,6 +33,7 @@ parts:
     source: https://gitlab.gnome.org/GNOME/gnome-characters.git
     source-type: git
     source-tag: '44.0'
+    source-depth: 1
 # ext:updatesnap
 #   version-format:
 #     lower-than: '45'
