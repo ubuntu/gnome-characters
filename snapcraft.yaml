@@ -2,7 +2,7 @@ name: gnome-characters
 adopt-info: gnome-characters
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
-base: core22
+base: core24
 
 layout:
   /usr/bin/gjs:
@@ -59,6 +59,8 @@ parts:
       - desktop-file-utils
       - gperf
       - libunistring-dev
-      - python3-distutils
+      - libmozjs-115-dev
+    stage-packages:
+      - libmozjs-115-0
     prime:
       - -usr/bin/gnome-characters
